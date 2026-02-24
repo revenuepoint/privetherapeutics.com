@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIVÉ THERAPEUTICS — Remedy Beyond Beauty</title>
+    <meta name="description" content="PRIVÉ THERAPEUTICS - Active Recovery Serum for Highly Sensitive Skin. Remedy Beyond Beauty.">
+    <meta property="og:title" content="PRIVÉ THERAPEUTICS">
+    <meta property="og:description" content="Active Recovery Serum for Highly Sensitive Skin. Remedy Beyond Beauty.">
+    <meta property="og:image" content="assets/hero-packaging-desktop.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="assets/prive-logo.svg">
+    <style>
+        :root {
+            --color-charcoal: #5C5552;
+            --color-taupe: #A09A94;
+            --color-cream: #CFC7C1;
+            --color-rose: #B58585;
+            --color-offwhite: #DBD8D4;
+            --color-white: #FFFFFF;
+            --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-white);
+            color: var(--color-charcoal);
+            min-height: 100vh;
+        }
+
+        /* ── Page Load Animations ── */
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeReveal {
+            from { opacity: 0; transform: scale(1.02); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Header / Logo ── */
+
+        .site-header {
+            padding: 40px 40px 30px;
+            opacity: 0;
+            animation: fadeDown 0.8s ease forwards;
+        }
+
+        .logo-link {
+            display: inline-block;
+        }
+
+        .logo {
+            display: block;
+            width: 178px;
+            height: auto;
+        }
+
+        /* ── Hero Image Grid ── */
+
+        .hero {
+            padding: 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 537fr 813fr 533fr;
+            grid-template-rows: 1fr;
+            gap: 8px;
+        }
+
+        .hero-image {
+            display: block;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeReveal 0.9s ease forwards;
+            min-height: 0;
+        }
+
+        .hero-image:nth-child(1) { animation-delay: 0.3s; }
+        .hero-image:nth-child(2) { animation-delay: 0.5s; }
+        .hero-image:nth-child(3) { animation-delay: 0.7s; }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── CTA Button ── */
+
+        .cta {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px 60px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .cta-button {
+            font-family: var(--font-primary);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            background: linear-gradient(135deg, #DBD8D4 0%, #CFC7C1 40%, #B8AFA8 70%, #CFC7C1 100%);
+            border: 1px solid var(--color-cream);
+            padding: 16px 40px;
+            cursor: pointer;
+            transition: opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            opacity: 0.85;
+            box-shadow: 0 2px 12px rgba(92, 85, 82, 0.15);
+        }
+
+        .cta-button:focus-visible {
+            outline: 2px solid var(--color-rose);
+            outline-offset: 3px;
+        }
+
+        /* ── Modal Overlay ── */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(92, 85, 82, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .modal-overlay.is-active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* ── Modal Panel ── */
+
+        .modal {
+            background: var(--color-white);
+            width: 90%;
+            max-width: 440px;
+            padding: 48px 40px 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .modal-overlay.is-active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--color-taupe);
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--color-charcoal);
+        }
+
+        .modal-close:focus-visible {
+            outline: 2px solid var(--color-rose);
+            outline-offset: 2px;
+        }
+
+        .modal-title {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: var(--color-taupe);
+            margin-bottom: 32px;
+            font-weight: 300;
+        }
+
+        /* ── Form ── */
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-taupe);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--color-cream);
+            padding: 8px 0;
+            font-size: 14px;
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+            background: transparent;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-group input::placeholder {
+            color: var(--color-cream);
+        }
+
+        .form-submit {
+            width: 100%;
+            font-family: var(--font-primary);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            background: transparent;
+            border: 1px solid var(--color-taupe);
+            padding: 14px 36px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background-color: var(--color-taupe);
+            color: var(--color-white);
+        }
+
+        .form-submit:focus-visible {
+            outline: 2px solid var(--color-rose);
+            outline-offset: 3px;
+        }
+
+        /* ── Checkbox ── */
+
+        .form-checkbox {
+            margin-bottom: 24px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--color-charcoal);
+            line-height: 1.4;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkbox-custom {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--color-cream);
+            margin-top: 1px;
+            position: relative;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked ~ .checkbox-custom {
+            border-color: var(--color-taupe);
+            background-color: var(--color-taupe);
+        }
+
+        .checkbox-custom::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 4px;
+            height: 8px;
+            border: solid var(--color-white);
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked ~ .checkbox-custom::after {
+            opacity: 1;
+        }
+
+        .checkbox-label input[type="checkbox"]:focus-visible ~ .checkbox-custom {
+            outline: 2px solid var(--color-rose);
+            outline-offset: 2px;
+        }
+
+        .checkbox-text {
+            font-weight: 300;
+        }
+
+        /* ── Sample Fields ── */
+
+        .sample-fields {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+            margin-bottom: 0;
+        }
+
+        .sample-fields.is-visible {
+            max-height: 500px;
+            opacity: 1;
+            margin-bottom: 24px;
+        }
+
+        .sample-note {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--color-taupe);
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-group--flex {
+            flex: 1;
+        }
+
+        .form-group--small {
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        /* ── Responsive: Tablet ── */
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 28px 24px 20px;
+            }
+
+            .logo {
+                width: 140px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .hero-image img {
+                height: auto;
+                object-fit: contain;
+            }
+
+            .cta {
+                padding: 28px 20px 40px;
+            }
+        }
+
+        /* ── Responsive: Small phone ── */
+
+        @media (max-width: 480px) {
+            .site-header {
+                padding: 20px 16px 16px;
+            }
+
+            .logo {
+                width: 120px;
+            }
+
+            .cta-button {
+                font-size: 11px;
+                padding: 14px 28px;
+                letter-spacing: 2px;
+            }
+
+            .modal {
+                padding: 40px 24px 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo-link" aria-label="PRIVÉ THERAPEUTICS Home">
+            <img src="assets/prive-logo.svg"
+                 alt="PRIVÉ THERAPEUTICS"
+                 class="logo"
+                 width="178"
+                 height="66">
+        </a>
+    </header>
+
+    <main>
+        <section class="hero" aria-label="Product showcase">
+            <div class="hero-grid">
+                <picture class="hero-image">
+                    <source media="(max-width: 768px)"
+                            srcset="assets/hero-woman-mobile.png">
+                    <img src="assets/hero-woman-desktop.png"
+                         alt="Woman in white linen shirt"
+                         loading="eager">
+                </picture>
+
+                <picture class="hero-image">
+                    <source media="(max-width: 768px)"
+                            srcset="assets/hero-packaging-mobile.png">
+                    <img src="assets/hero-packaging-desktop.png"
+                         alt="PRIVÉ THERAPEUTICS Active Recovery Serum bottle and packaging"
+                         loading="eager">
+                </picture>
+
+                <picture class="hero-image">
+                    <source media="(max-width: 768px)"
+                            srcset="assets/hero-closeup-mobile.png">
+                    <img src="assets/hero-closeup-desktop.png"
+                         alt="Active Recovery Serum dropper close-up"
+                         loading="eager">
+                </picture>
+            </div>
+        </section>
+
+        <section class="cta" aria-label="Call to action">
+            <button type="button"
+                    class="cta-button"
+                    id="registerBtn"
+                    aria-haspopup="dialog">
+                REGISTER FOR UPDATES
+            </button>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay" role="dialog"
+         aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <button type="button" class="modal-close" id="modalClose"
+                    aria-label="Close registration form">&times;</button>
+            <h2 class="modal-title" id="modalTitle">Register for Updates</h2>
+            <p class="modal-subtitle">Be the first to know about our launch.</p>
+            <form class="register-form" id="registerForm" novalidate>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName"
+                           placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName"
+                           placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email"
+                           placeholder="Email Address" required>
+                </div>
+
+                <div class="form-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="requestSample" name="requestSample">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">I'd also like to request a complimentary sample</span>
+                    </label>
+                </div>
+
+                <div class="sample-fields" id="sampleFields">
+                    <p class="sample-note">Please provide your mailing address and we'll send a complimentary sample of our Active Recovery Serum. Please allow 4–6 weeks for delivery. You'll receive an email with a tracking number once your sample has shipped. Samples are limited to one per household and available while supplies last.</p>
+
+                    <div class="form-group">
+                        <label for="address1">Street Address</label>
+                        <input type="text" id="address1" name="address1"
+                               placeholder="Street Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="address2">Apt / Suite / Unit</label>
+                        <input type="text" id="address2" name="address2"
+                               placeholder="Apt / Suite / Unit (optional)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group--flex">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city"
+                                   placeholder="City">
+                        </div>
+                        <div class="form-group form-group--small">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state"
+                                   placeholder="State" maxlength="2">
+                        </div>
+                        <div class="form-group form-group--small">
+                            <label for="zip">Zip</label>
+                            <input type="text" id="zip" name="zip"
+                                   placeholder="Zip Code" maxlength="10">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-submit">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var overlay = document.getElementById('modalOverlay');
+            var openBtn = document.getElementById('registerBtn');
+            var closeBtn = document.getElementById('modalClose');
+            var form = document.getElementById('registerForm');
+            var sampleCheckbox = document.getElementById('requestSample');
+            var sampleFields = document.getElementById('sampleFields');
+
+            function openModal() {
+                overlay.classList.add('is-active');
+                closeBtn.focus();
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                overlay.classList.remove('is-active');
+                document.body.style.overflow = '';
+                openBtn.focus();
+            }
+
+            function toggleSampleFields() {
+                if (sampleCheckbox.checked) {
+                    sampleFields.classList.add('is-visible');
+                } else {
+                    sampleFields.classList.remove('is-visible');
+                }
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            sampleCheckbox.addEventListener('change', toggleSampleFields);
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeModal();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlay.classList.contains('is-active')) {
+                    closeModal();
+                }
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+            });
+        })();
+    </script>
+</body>
+</html>
