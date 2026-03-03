@@ -106,15 +106,27 @@
             object-fit: cover;
         }
 
-        /* ── CTA Button ── */
+        /* ── CTA ── */
 
         .cta {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             padding: 40px 20px 60px;
             opacity: 0;
             animation: fadeUp 0.8s ease forwards;
             animation-delay: 1s;
+        }
+
+        .cta-headline {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            text-align: center;
+            margin-bottom: 28px;
         }
 
         .cta-button {
@@ -139,6 +151,27 @@
         .cta-button:focus-visible {
             outline: 2px solid var(--color-rose);
             outline-offset: 3px;
+        }
+
+        .cta-provider-link {
+            margin-top: 20px;
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--color-taupe);
+            letter-spacing: 0.5px;
+        }
+
+        .cta-provider-link a {
+            color: var(--color-rose);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .cta-provider-link a:hover {
+            color: var(--color-charcoal);
         }
 
         /* ── Modal Overlay ── */
@@ -351,29 +384,7 @@
             font-weight: 300;
         }
 
-        /* ── Sample Fields ── */
-
-        .sample-fields {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-            margin-bottom: 0;
-        }
-
-        .sample-fields.is-visible {
-            max-height: 500px;
-            opacity: 1;
-            margin-bottom: 24px;
-        }
-
-        .sample-note {
-            font-size: 12px;
-            line-height: 1.6;
-            color: var(--color-taupe);
-            margin-bottom: 24px;
-            font-weight: 300;
-        }
+        /* ── Form Row ── */
 
         .form-row {
             display: flex;
@@ -387,6 +398,271 @@
         .form-group--small {
             width: 80px;
             flex-shrink: 0;
+        }
+
+        /* ── Select ── */
+
+        .form-select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--color-cream);
+            padding: 8px 24px 8px 0;
+            font-size: 16px;
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+            background-color: transparent;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A09A94' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 12px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-select option[value=""][disabled] {
+            color: var(--color-cream);
+        }
+
+        /* ── Textarea ── */
+
+        .form-textarea {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--color-cream);
+            padding: 8px 0;
+            font-size: 16px;
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+            background: transparent;
+            outline: none;
+            resize: vertical;
+            min-height: 60px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-textarea::placeholder {
+            color: var(--color-cream);
+        }
+
+        /* ── Fieldset ── */
+
+        .form-fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 24px;
+        }
+
+        .form-fieldset-legend {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-taupe);
+            margin-bottom: 14px;
+        }
+
+        .form-fieldset .form-checkbox {
+            margin-bottom: 14px;
+        }
+
+        .form-fieldset .form-checkbox:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Step Indicator ── */
+
+        .step-indicator {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-cream);
+            transition: background-color 0.3s ease;
+        }
+
+        .step-dot.is-active {
+            background-color: var(--color-rose);
+        }
+
+        /* ── Modal Preamble ── */
+
+        .modal-preamble {
+            margin-bottom: 28px;
+        }
+
+        .modal-preamble-item {
+            margin-bottom: 12px;
+        }
+
+        .modal-preamble-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-taupe);
+            margin-bottom: 4px;
+        }
+
+        .modal-preamble-text {
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--color-charcoal);
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 0 20px 40px;
+        }
+
+        .footer-disclaimer {
+            font-size: 11px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--color-taupe);
+        }
+
+        /* ── Form Helper Text ── */
+
+        .privacy-tooltip {
+            position: relative;
+            display: inline;
+        }
+
+        .privacy-tooltip .form-link {
+            cursor: default;
+        }
+
+        .privacy-tooltip-content {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            width: 280px;
+            background: var(--color-charcoal);
+            color: var(--color-white);
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.7;
+            padding: 14px 16px;
+            border-radius: 4px;
+            z-index: 10;
+            list-style: none;
+        }
+
+        .privacy-tooltip-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 20px;
+            border: 6px solid transparent;
+            border-top-color: var(--color-charcoal);
+        }
+
+        .privacy-tooltip:hover .privacy-tooltip-content,
+        .privacy-tooltip:focus-within .privacy-tooltip-content {
+            display: block;
+        }
+
+        .privacy-tooltip-content li::before {
+            content: '\2022';
+            margin-right: 6px;
+            opacity: 0.5;
+        }
+
+        .form-why-ask {
+            font-size: 11px;
+            color: var(--color-taupe);
+            font-weight: 300;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .form-link {
+            color: var(--color-rose);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+
+        .form-link:hover {
+            color: var(--color-charcoal);
+        }
+
+        .label-optional {
+            font-weight: 300;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 10px;
+            color: var(--color-cream);
+        }
+
+        /* ── Confirmation ── */
+
+        .confirmation-content {
+            text-align: center;
+            padding: 32px 0 16px;
+        }
+
+        .confirmation-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 24px;
+        }
+
+        .confirmation-title {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            margin-bottom: 16px;
+        }
+
+        .confirmation-message {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--color-taupe);
+            font-weight: 300;
+            margin-bottom: 32px;
+        }
+
+        /* ── Validation ── */
+
+        .form-group.has-error input,
+        .form-group.has-error select,
+        .form-group.has-error textarea {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-checkbox.has-error .checkbox-custom {
+            border-color: var(--color-rose);
         }
 
         /* ── Responsive: Tablet ── */
@@ -413,6 +689,12 @@
             .cta {
                 padding: 28px 20px 40px;
             }
+
+            .cta-headline {
+                font-size: 12px;
+                letter-spacing: 1.5px;
+                padding: 0 16px;
+            }
         }
 
         /* ── Responsive: Small phone ── */
@@ -430,6 +712,11 @@
                 font-size: 11px;
                 padding: 14px 28px;
                 letter-spacing: 2px;
+            }
+
+            .cta-headline {
+                font-size: 11px;
+                letter-spacing: 1px;
             }
 
             .modal {
@@ -479,129 +766,615 @@
         </section>
 
         <section class="cta" aria-label="Call to action">
+            <h2 class="cta-headline">Register for a complimentary Active Recovery Serum</h2>
             <button type="button"
                     class="cta-button"
-                    id="registerBtn"
+                    id="openFormBtn"
                     aria-haspopup="dialog">
-                REGISTER FOR UPDATES
+                REQUEST EARLY ACCESS
             </button>
+            <p class="cta-provider-link">Healthcare provider? <a href="#" id="openClinicianBtn">Click here</a></p>
         </section>
     </main>
 
-    <div class="modal-overlay" id="modalOverlay" role="dialog"
-         aria-modal="true" aria-labelledby="modalTitle">
+    <footer class="site-footer">
+        <p class="footer-disclaimer">For external use only. Not a drug. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+    </footer>
+
+    <!-- ── Customer Modal ── -->
+    <div class="modal-overlay" id="customerModal" role="dialog"
+         aria-modal="true" aria-labelledby="customerModalTitle">
         <div class="modal">
-            <button type="button" class="modal-close" id="modalClose"
-                    aria-label="Close registration form">&times;</button>
-            <h2 class="modal-title" id="modalTitle">Register for Updates</h2>
-            <p class="modal-subtitle">Be the first to know about our launch.</p>
-            <form class="register-form" id="registerForm" novalidate>
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName"
-                           placeholder="First Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName"
-                           placeholder="Last Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email"
-                           placeholder="Email Address" required>
-                </div>
+            <button type="button" class="modal-close" id="customerClose"
+                    aria-label="Close form">&times;</button>
 
-                <div class="form-checkbox">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="requestSample" name="requestSample">
-                        <span class="checkbox-custom"></span>
-                        <span class="checkbox-text">I'd also like to request a complimentary sample</span>
-                    </label>
+            <!-- Product Purpose Statement -->
+            <div id="modalPreamble" class="modal-preamble">
+                <h2 class="modal-title" id="customerModalTitle">Active Recovery Serum</h2>
+                <div class="modal-preamble-item">
+                    <span class="modal-preamble-label">What it is</span>
+                    <p class="modal-preamble-text">A topical restorative treatment designed to support compromised, sensitive skin and improve comfort and resilience.</p>
                 </div>
+                <div class="modal-preamble-item">
+                    <span class="modal-preamble-label">Where it's intended to be used</span>
+                    <p class="modal-preamble-text">External skin including intimate skin regions and other delicate areas affected by medical treatment, friction, dryness, or irritation.</p>
+                </div>
+            </div>
 
-                <div class="sample-fields" id="sampleFields">
-                    <p class="sample-note">Please provide your mailing address and we'll send a complimentary sample of our Active Recovery Serum. Please allow 4–6 weeks for delivery. You'll receive an email with a tracking number once your sample has shipped. Samples are limited to one per household and available while supplies last.</p>
+            <!-- Step Indicator -->
+            <div class="step-indicator" id="stepIndicator">
+                <span class="step-dot is-active"></span>
+                <span class="step-dot"></span>
+            </div>
 
+            <!-- STEP 1: Quick Intake -->
+            <div id="step1">
+                <form id="step1Form" novalidate>
                     <div class="form-group">
-                        <label for="address1">Street Address</label>
-                        <input type="text" id="address1" name="address1"
-                               placeholder="Street Address">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName"
+                               placeholder="Full Name" required
+                               autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label for="address2">Apt / Suite / Unit</label>
-                        <input type="text" id="address2" name="address2"
-                               placeholder="Apt / Suite / Unit (optional)">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Email Address" required
+                               autocomplete="email">
                     </div>
+
+                    <input type="hidden" name="utm_source">
+                    <input type="hidden" name="utm_medium">
+                    <input type="hidden" name="utm_campaign">
+                    <input type="hidden" name="utm_term">
+                    <input type="hidden" name="utm_content">
+
+                    <button type="submit" class="form-submit">Continue</button>
+                </form>
+            </div>
+
+            <!-- STEP 2: Patient Intake -->
+            <div id="step2" style="display:none;">
+                <p class="modal-subtitle">We ask a few questions to prioritize limited inventory.</p>
+                <form id="patientForm" novalidate>
                     <div class="form-row">
                         <div class="form-group form-group--flex">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city"
-                                   placeholder="City">
+                            <label for="patientState">State</label>
+                            <input type="text" id="patientState" name="state"
+                                   placeholder="e.g. CA" required maxlength="2"
+                                   autocomplete="address-level1">
                         </div>
-                        <div class="form-group form-group--small">
-                            <label for="state">State</label>
-                            <input type="text" id="state" name="state"
-                                   placeholder="State" maxlength="2">
-                        </div>
-                        <div class="form-group form-group--small">
-                            <label for="zip">Zip</label>
-                            <input type="text" id="zip" name="zip"
-                                   placeholder="Zip Code" maxlength="10">
+                        <div class="form-group form-group--flex">
+                            <label for="patientPhone">Phone <span class="label-optional">(optional)</span></label>
+                            <input type="tel" id="patientPhone" name="phone"
+                                   placeholder="(555) 555-5555"
+                                   autocomplete="tel">
                         </div>
                     </div>
-                </div>
 
-                <button type="submit" class="form-submit">SUBMIT</button>
-            </form>
+                    <div class="form-group">
+                        <label for="patientAge">Age Range</label>
+                        <select id="patientAge" name="ageRange" class="form-select" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="under-25">Under 25</option>
+                            <option value="25-34">25–34</option>
+                            <option value="35-44">35–44</option>
+                            <option value="45-54">45–54</option>
+                            <option value="55-64">55–64</option>
+                            <option value="65+">65+</option>
+                            <option value="prefer-not">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-fieldset-legend">Contributing Factors <span class="label-optional">(select all that apply)</span></legend>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="hormonal">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Hormonal changes (peri/postpartum, peri/postmenopause)</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="cancer-treatment">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Cancer treatment (radiation, chemotherapy)</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="post-surgical">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Post-surgical healing</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="dryness-sensitivity">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Chronic dryness / sensitivity</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="recurrent-irritation">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Recurrent irritation</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <label for="patientGoal">What are you trying to improve most right now?</label>
+                        <input type="text" id="patientGoal" name="goal"
+                               placeholder="Tell us what matters most to you...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="patientSensitivities">Known Ingredient Sensitivities <span class="label-optional">(optional)</span></label>
+                        <input type="text" id="patientSensitivities" name="sensitivities"
+                               placeholder="e.g. fragrance, retinol...">
+                    </div>
+
+                    <div class="form-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="consentPrivacy" name="consentPrivacy" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">I agree to the
+                                <span class="privacy-tooltip"><a href="#" class="form-link" onclick="return false" tabindex="0">Privacy Policy</a>
+                                    <ul class="privacy-tooltip-content">
+                                        <li>Private and confidential</li>
+                                        <li>We never sell your information</li>
+                                        <li>We only use it to deliver your complimentary product and share relevant updates</li>
+                                        <li>Unsubscribe anytime</li>
+                                    </ul>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="consentMedical" name="consentMedical" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">I understand this does not replace medical care</span>
+                        </label>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="feedbackCommit" name="feedbackCommit" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">If selected, I agree to sharing my experience — positive or negative — to help us continue to improve.</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="form-submit">Submit</button>
+                </form>
+            </div>
+
+            <!-- Confirmation -->
+            <div id="customerConfirmation" style="display:none;">
+                <div class="confirmation-content">
+                    <div class="confirmation-icon" aria-hidden="true">&#10003;</div>
+                    <h3 class="confirmation-title">Thank You</h3>
+                    <p class="confirmation-message">Thanks. Trial sizes are limited and prioritized based on fit. We'll email next steps if selected. Either way, you'll receive updates as we prepare to launch.</p>
+                    <button type="button" class="form-submit" id="customerConfirmClose">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Clinician Modal ── -->
+    <div class="modal-overlay" id="clinicianModal" role="dialog"
+         aria-modal="true" aria-labelledby="clinicianModalTitle">
+        <div class="modal">
+            <button type="button" class="modal-close" id="clinicianClose"
+                    aria-label="Close form">&times;</button>
+
+            <!-- Clinician Form -->
+            <div id="clinicianFormStep">
+                <h2 class="modal-title" id="clinicianModalTitle">For Clinicians</h2>
+                <p class="modal-subtitle">Request clinical information, discuss patient suitability, or participate in our early evaluation program.</p>
+                <form id="clinicianForm" novalidate>
+                    <div class="form-group">
+                        <label for="clinFullName">Full Name</label>
+                        <input type="text" id="clinFullName" name="fullName"
+                               placeholder="Full Name" required
+                               autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="clinEmail">Professional Email</label>
+                        <input type="email" id="clinEmail" name="email"
+                               placeholder="Professional Email" required
+                               autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="clinRole">Role / Credentials</label>
+                        <select id="clinRole" name="credentials" class="form-select" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="MD">MD</option>
+                            <option value="DO">DO</option>
+                            <option value="NP">NP</option>
+                            <option value="PA">PA</option>
+                            <option value="RN">RN</option>
+                            <option value="PT">PT</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clinSpecialty">Specialty / Practice Area</label>
+                        <select id="clinSpecialty" name="specialty" class="form-select" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="gynecologic-oncology">Gynecologic Oncology</option>
+                            <option value="radiation-oncology">Radiation Oncology</option>
+                            <option value="medical-oncology">Medical Oncology</option>
+                            <option value="ob-gyn">OB/GYN</option>
+                            <option value="urogynecology">Urogynecology</option>
+                            <option value="urology">Urology</option>
+                            <option value="dermatology">Dermatology</option>
+                            <option value="plastic-surgery">Plastic Surgery</option>
+                            <option value="family-primary">Family Medicine / Primary Care</option>
+                            <option value="internal-medicine">Internal Medicine</option>
+                            <option value="pelvic-floor-pt">Pelvic Floor Physical Therapy</option>
+                            <option value="oncology-nursing">Oncology Nursing / Nurse Navigator</option>
+                            <option value="sexual-health">Sexual Health / Menopause Specialist</option>
+                            <option value="integrative">Integrative / Functional Medicine</option>
+                            <option value="other">Other (please specify)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clinPractice">Practice / Institution</label>
+                        <input type="text" id="clinPractice" name="practice"
+                               placeholder="Practice or Institution" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clinState">State</label>
+                        <input type="text" id="clinState" name="state"
+                               placeholder="e.g. CA" required maxlength="2"
+                               autocomplete="address-level1">
+                    </div>
+                    <div class="form-group">
+                        <label for="clinWebsite">Website or NPI <span class="label-optional">(optional)</span></label>
+                        <input type="text" id="clinWebsite" name="websiteOrNpi"
+                               placeholder="Website URL or NPI number">
+                    </div>
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-fieldset-legend">What are you looking for? <span class="label-optional">(select all that apply)</span></legend>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="clinical-summary">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Clinical summary / rationale</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="ingredients-safety">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Ingredient list and safety considerations</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="bench-data">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">In vitro or bench data</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="patient-handouts">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Patient handouts / usage guidance</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="evaluation-program">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Evaluation program details</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="other">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Other</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <label for="clinVolume">Relevant Patient Volume <span class="label-optional">(optional)</span></label>
+                        <select id="clinVolume" name="patientVolume" class="form-select">
+                            <option value="" disabled selected>Select</option>
+                            <option value="1-25">1–25 / month</option>
+                            <option value="26-50">26–50 / month</option>
+                            <option value="51-100">51–100 / month</option>
+                            <option value="101-250">101–250 / month</option>
+                            <option value="250+">250+ / month</option>
+                        </select>
+                    </div>
+
+                    <div class="form-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="clinConsent" name="clinConsent" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">I'm requesting information for professional evaluation.</span>
+                        </label>
+                    </div>
+
+                    <input type="hidden" name="utm_source">
+                    <input type="hidden" name="utm_medium">
+                    <input type="hidden" name="utm_campaign">
+                    <input type="hidden" name="utm_term">
+                    <input type="hidden" name="utm_content">
+
+                    <button type="submit" class="form-submit">Submit</button>
+                </form>
+            </div>
+
+            <!-- Clinician Confirmation -->
+            <div id="clinicianConfirmation" style="display:none;">
+                <div class="confirmation-content">
+                    <div class="confirmation-icon" aria-hidden="true">&#10003;</div>
+                    <h3 class="confirmation-title">Thank You</h3>
+                    <p class="confirmation-message">We'll follow up with the clinical information you've requested within 2 business days.</p>
+                    <button type="button" class="form-submit" id="clinicianConfirmClose">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         (function () {
-            var overlay = document.getElementById('modalOverlay');
-            var openBtn = document.getElementById('registerBtn');
-            var closeBtn = document.getElementById('modalClose');
-            var form = document.getElementById('registerForm');
-            var sampleCheckbox = document.getElementById('requestSample');
-            var sampleFields = document.getElementById('sampleFields');
+            'use strict';
 
-            function openModal() {
+            // ── UTM Capture ──
+            var params = new URLSearchParams(window.location.search);
+            var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+            var utmData = {};
+            utmKeys.forEach(function (key) {
+                utmData[key] = params.get(key) || '';
+            });
+            document.querySelectorAll('input[name^="utm_"]').forEach(function (el) {
+                if (utmData[el.name]) el.value = utmData[el.name];
+            });
+
+            // ── Analytics Stubs ──
+            function trackEvent(name, data) {
+                console.log('[Privé Analytics]', name, data || {});
+            }
+
+            // ── Customer Modal Elements ──
+            var customerOverlay = document.getElementById('customerModal');
+            var openBtn = document.getElementById('openFormBtn');
+            var customerCloseBtn = document.getElementById('customerClose');
+            var customerConfirmCloseBtn = document.getElementById('customerConfirmClose');
+
+            var step1El = document.getElementById('step1');
+            var step2El = document.getElementById('step2');
+            var customerConfirmEl = document.getElementById('customerConfirmation');
+            var preambleEl = document.getElementById('modalPreamble');
+            var stepIndicatorEl = document.getElementById('stepIndicator');
+            var stepDots = stepIndicatorEl.querySelectorAll('.step-dot');
+
+            var step1Form = document.getElementById('step1Form');
+            var patientForm = document.getElementById('patientForm');
+
+            var leadData = {};
+
+            // ── Clinician Modal Elements ──
+            var clinicianOverlay = document.getElementById('clinicianModal');
+            var openClinicianBtn = document.getElementById('openClinicianBtn');
+            var clinicianCloseBtn = document.getElementById('clinicianClose');
+            var clinicianConfirmCloseBtn = document.getElementById('clinicianConfirmClose');
+
+            var clinicianFormStepEl = document.getElementById('clinicianFormStep');
+            var clinicianConfirmEl = document.getElementById('clinicianConfirmation');
+            var clinicianForm = document.getElementById('clinicianForm');
+
+            // ── Modal Helpers ──
+            function openModal(overlay) {
                 overlay.classList.add('is-active');
-                closeBtn.focus();
+                overlay.querySelector('.modal-close').focus();
                 document.body.style.overflow = 'hidden';
             }
 
-            function closeModal() {
-                overlay.classList.remove('is-active');
+            function closeCustomerModal() {
+                customerOverlay.classList.remove('is-active');
                 document.body.style.overflow = '';
                 openBtn.focus();
+                resetCustomerForm();
             }
 
-            function toggleSampleFields() {
-                if (sampleCheckbox.checked) {
-                    sampleFields.classList.add('is-visible');
-                } else {
-                    sampleFields.classList.remove('is-visible');
+            function closeClinicianModal() {
+                clinicianOverlay.classList.remove('is-active');
+                document.body.style.overflow = '';
+                openClinicianBtn.focus();
+                resetClinicianForm();
+            }
+
+            function closeActiveModal() {
+                if (customerOverlay.classList.contains('is-active')) closeCustomerModal();
+                if (clinicianOverlay.classList.contains('is-active')) closeClinicianModal();
+            }
+
+            // ── Customer Form Reset ──
+            function resetCustomerForm() {
+                step1Form.reset();
+                patientForm.reset();
+                document.querySelectorAll('#customerModal input[name^="utm_"]').forEach(function (el) {
+                    if (utmData[el.name]) el.value = utmData[el.name];
+                });
+                document.querySelectorAll('#customerModal .has-error').forEach(function (el) {
+                    el.classList.remove('has-error');
+                });
+                leadData = {};
+                showCustomerStep('step1');
+            }
+
+            // ── Customer Step Management ──
+            function showCustomerStep(step) {
+                step1El.style.display = 'none';
+                step2El.style.display = 'none';
+                customerConfirmEl.style.display = 'none';
+
+                if (step === 'step1') {
+                    step1El.style.display = 'block';
+                    preambleEl.style.display = 'block';
+                    stepIndicatorEl.style.display = 'flex';
+                    stepDots[0].classList.add('is-active');
+                    stepDots[1].classList.remove('is-active');
+                } else if (step === 'step2') {
+                    step2El.style.display = 'block';
+                    preambleEl.style.display = 'none';
+                    stepIndicatorEl.style.display = 'flex';
+                    stepDots[0].classList.add('is-active');
+                    stepDots[1].classList.add('is-active');
+                    customerOverlay.querySelector('.modal').scrollTop = 0;
+                } else if (step === 'confirmation') {
+                    customerConfirmEl.style.display = 'block';
+                    preambleEl.style.display = 'none';
+                    stepIndicatorEl.style.display = 'none';
+                    customerOverlay.querySelector('.modal').scrollTop = 0;
                 }
             }
 
-            openBtn.addEventListener('click', openModal);
-            closeBtn.addEventListener('click', closeModal);
-            sampleCheckbox.addEventListener('change', toggleSampleFields);
+            // ── Clinician Form Reset ──
+            function resetClinicianForm() {
+                clinicianForm.reset();
+                document.querySelectorAll('#clinicianModal input[name^="utm_"]').forEach(function (el) {
+                    if (utmData[el.name]) el.value = utmData[el.name];
+                });
+                document.querySelectorAll('#clinicianModal .has-error').forEach(function (el) {
+                    el.classList.remove('has-error');
+                });
+                clinicianFormStepEl.style.display = 'block';
+                clinicianConfirmEl.style.display = 'none';
+            }
 
-            overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) closeModal();
+            // ── Validation ──
+            function validateForm(form) {
+                var isValid = true;
+                form.querySelectorAll('.has-error').forEach(function (el) {
+                    el.classList.remove('has-error');
+                });
+
+                form.querySelectorAll('[required]').forEach(function (field) {
+                    var group = field.closest('.form-group') || field.closest('.form-checkbox');
+                    if (field.type === 'checkbox') {
+                        if (!field.checked) {
+                            if (group) group.classList.add('has-error');
+                            isValid = false;
+                        }
+                    } else if (!field.value.trim()) {
+                        if (group) group.classList.add('has-error');
+                        isValid = false;
+                    } else if (!field.checkValidity()) {
+                        if (group) group.classList.add('has-error');
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            }
+
+            function collectFormData(form) {
+                var data = {};
+                var fd = new FormData(form);
+                fd.forEach(function (value, key) {
+                    if (data[key]) {
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                });
+                return data;
+            }
+
+            // ── Event Listeners: Customer Modal ──
+            openBtn.addEventListener('click', function () {
+                openModal(customerOverlay);
+                trackEvent('form_start', { form: 'customer' });
+            });
+            customerCloseBtn.addEventListener('click', closeCustomerModal);
+            customerConfirmCloseBtn.addEventListener('click', closeCustomerModal);
+            customerOverlay.addEventListener('click', function (e) {
+                if (e.target === customerOverlay) closeCustomerModal();
             });
 
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && overlay.classList.contains('is-active')) {
-                    closeModal();
-                }
-            });
-
-            form.addEventListener('submit', function (e) {
+            // ── Event Listeners: Clinician Modal ──
+            openClinicianBtn.addEventListener('click', function (e) {
                 e.preventDefault();
+                openModal(clinicianOverlay);
+                trackEvent('form_start', { form: 'clinician' });
+            });
+            clinicianCloseBtn.addEventListener('click', closeClinicianModal);
+            clinicianConfirmCloseBtn.addEventListener('click', closeClinicianModal);
+            clinicianOverlay.addEventListener('click', function (e) {
+                if (e.target === clinicianOverlay) closeClinicianModal();
+            });
+
+            // ── Escape Key ──
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeActiveModal();
+            });
+
+            // ── Step 1 Submit ──
+            step1Form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validateForm(step1Form)) return;
+
+                leadData = collectFormData(step1Form);
+                trackEvent('step1_submit', { form: 'customer' });
+                showCustomerStep('step2');
+            });
+
+            // ── Patient Form Submit ──
+            patientForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validateForm(patientForm)) return;
+
+                var patientData = collectFormData(patientForm);
+                var allData = Object.assign({}, leadData, patientData);
+
+                var cohort = [];
+                var factors = allData.factors;
+                if (factors) {
+                    var list = Array.isArray(factors) ? factors : [factors];
+                    if (list.indexOf('cancer-treatment') !== -1) cohort.push('oncology-recovery');
+                    if (list.indexOf('hormonal') !== -1) cohort.push('hormonal-changes');
+                    if (list.indexOf('post-surgical') !== -1) cohort.push('post-surgical');
+                    if (list.indexOf('dryness-sensitivity') !== -1 || list.indexOf('recurrent-irritation') !== -1) cohort.push('general-sensitivity');
+                }
+
+                trackEvent('step2_submit', { form: 'patient', cohort: cohort });
+                trackEvent('trial_request', { data: allData, cohort: cohort });
+                showCustomerStep('confirmation');
+            });
+
+            // ── Clinician Form Submit ──
+            clinicianForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validateForm(clinicianForm)) return;
+
+                var clinData = collectFormData(clinicianForm);
+                trackEvent('clinician_submit', {
+                    data: clinData,
+                    cohort: [clinData.credentials, clinData.specialty, clinData.state].filter(Boolean)
+                });
+
+                clinicianFormStepEl.style.display = 'none';
+                clinicianConfirmEl.style.display = 'block';
+                clinicianOverlay.querySelector('.modal').scrollTop = 0;
             });
         })();
     </script>
