@@ -677,9 +677,16 @@
             }
 
             .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 6px;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
             }
+
+            .hero-image:nth-child(1) { order: 2; }
+            .hero-image:nth-child(2) {
+                order: 1;
+                grid-column: 1 / -1;
+            }
+            .hero-image:nth-child(3) { order: 3; }
 
             .hero-image img {
                 height: auto;
