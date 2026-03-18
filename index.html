@@ -835,11 +835,19 @@
             <!-- STEP 1: Quick Intake -->
             <div id="step1">
                 <form id="step1Form" novalidate>
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" name="fullName"
-                               placeholder="Full Name" required
-                               autocomplete="name">
+                    <div class="form-row">
+                        <div class="form-group form-group--flex">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName"
+                                   placeholder="First Name" required
+                                   autocomplete="given-name">
+                        </div>
+                        <div class="form-group form-group--flex">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName"
+                                   placeholder="Last Name" required
+                                   autocomplete="family-name">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -853,6 +861,10 @@
                     <input type="hidden" name="utm_campaign">
                     <input type="hidden" name="utm_term">
                     <input type="hidden" name="utm_content">
+                    <input type="hidden" name="submissionIp" class="tracking-ip">
+                    <input type="hidden" name="userAgent" class="tracking-ua">
+                    <input type="hidden" name="referrerUrl" class="tracking-referrer">
+                    <input type="hidden" name="pageUrl" class="tracking-page">
 
                     <button type="submit" class="form-submit">Continue</button>
                 </form>
@@ -865,9 +877,27 @@
                     <div class="form-row">
                         <div class="form-group form-group--flex">
                             <label for="patientState">State</label>
-                            <input type="text" id="patientState" name="state"
-                                   placeholder="e.g. CA" required maxlength="2"
-                                   autocomplete="address-level1">
+                            <select id="patientState" name="state" class="form-select" required autocomplete="address-level1">
+                                <option value="" disabled selected>Select</option>
+                                <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option>
+                                <option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option>
+                                <option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option>
+                                <option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+                                <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option>
+                                <option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option>
+                                <option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option>
+                                <option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option>
+                                <option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
+                                <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option>
+                                <option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option>
+                                <option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option>
+                                <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option>
+                                <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option>
+                                <option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                                <option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option>
+                                <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                                <option value="PR">PR</option><option value="GU">GU</option><option value="VI">VI</option>
+                            </select>
                         </div>
                         <div class="form-group form-group--flex">
                             <label for="patientPhone">Phone <span class="label-optional">(optional)</span></label>
@@ -881,13 +911,13 @@
                         <label for="patientAge">Age Range</label>
                         <select id="patientAge" name="ageRange" class="form-select" required>
                             <option value="" disabled selected>Select</option>
-                            <option value="under-25">Under 25</option>
+                            <option value="Under 25">Under 25</option>
                             <option value="25-34">25–34</option>
                             <option value="35-44">35–44</option>
                             <option value="45-54">45–54</option>
                             <option value="55-64">55–64</option>
                             <option value="65+">65+</option>
-                            <option value="prefer-not">Prefer not to say</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
                         </select>
                     </div>
 
@@ -895,35 +925,35 @@
                         <legend class="form-fieldset-legend">Contributing Factors <span class="label-optional">(select all that apply)</span></legend>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="factors" value="hormonal">
+                                <input type="checkbox" name="factors" value="Hormonal Changes">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Hormonal changes (peri/postpartum, peri/postmenopause)</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="factors" value="cancer-treatment">
+                                <input type="checkbox" name="factors" value="Cancer Treatment">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Cancer treatment (radiation, chemotherapy)</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="factors" value="post-surgical">
+                                <input type="checkbox" name="factors" value="Post-Surgical Healing">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Post-surgical healing</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="factors" value="dryness-sensitivity">
+                                <input type="checkbox" name="factors" value="Chronic Dryness/Sensitivity">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Chronic dryness / sensitivity</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="factors" value="recurrent-irritation">
+                                <input type="checkbox" name="factors" value="Recurrent Irritation">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Recurrent irritation</span>
                             </label>
@@ -1003,11 +1033,19 @@
                 <h2 class="modal-title" id="clinicianModalTitle">For Clinicians</h2>
                 <p class="modal-subtitle">Request clinical information, discuss patient suitability, or participate in our early evaluation program.</p>
                 <form id="clinicianForm" novalidate>
-                    <div class="form-group">
-                        <label for="clinFullName">Full Name</label>
-                        <input type="text" id="clinFullName" name="fullName"
-                               placeholder="Full Name" required
-                               autocomplete="name">
+                    <div class="form-row">
+                        <div class="form-group form-group--flex">
+                            <label for="clinFirstName">First Name</label>
+                            <input type="text" id="clinFirstName" name="firstName"
+                                   placeholder="First Name" required
+                                   autocomplete="given-name">
+                        </div>
+                        <div class="form-group form-group--flex">
+                            <label for="clinLastName">Last Name</label>
+                            <input type="text" id="clinLastName" name="lastName"
+                                   placeholder="Last Name" required
+                                   autocomplete="family-name">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="clinEmail">Professional Email</label>
@@ -1032,21 +1070,21 @@
                         <label for="clinSpecialty">Specialty / Practice Area</label>
                         <select id="clinSpecialty" name="specialty" class="form-select" required>
                             <option value="" disabled selected>Select</option>
-                            <option value="gynecologic-oncology">Gynecologic Oncology</option>
-                            <option value="radiation-oncology">Radiation Oncology</option>
-                            <option value="medical-oncology">Medical Oncology</option>
-                            <option value="ob-gyn">OB/GYN</option>
-                            <option value="urogynecology">Urogynecology</option>
-                            <option value="urology">Urology</option>
-                            <option value="dermatology">Dermatology</option>
-                            <option value="plastic-surgery">Plastic Surgery</option>
-                            <option value="family-primary">Family Medicine / Primary Care</option>
-                            <option value="internal-medicine">Internal Medicine</option>
-                            <option value="pelvic-floor-pt">Pelvic Floor Physical Therapy</option>
-                            <option value="oncology-nursing">Oncology Nursing / Nurse Navigator</option>
-                            <option value="sexual-health">Sexual Health / Menopause Specialist</option>
-                            <option value="integrative">Integrative / Functional Medicine</option>
-                            <option value="other">Other (please specify)</option>
+                            <option value="Gynecologic Oncology">Gynecologic Oncology</option>
+                            <option value="Radiation Oncology">Radiation Oncology</option>
+                            <option value="Medical Oncology">Medical Oncology</option>
+                            <option value="OB/GYN">OB/GYN</option>
+                            <option value="Urogynecology">Urogynecology</option>
+                            <option value="Urology">Urology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Plastic Surgery">Plastic Surgery</option>
+                            <option value="Family Medicine / Primary Care">Family Medicine / Primary Care</option>
+                            <option value="Internal Medicine">Internal Medicine</option>
+                            <option value="Pelvic Floor Physical Therapy">Pelvic Floor Physical Therapy</option>
+                            <option value="Oncology Nursing / Nurse Navigator">Oncology Nursing / Nurse Navigator</option>
+                            <option value="Sexual Health / Menopause Specialist">Sexual Health / Menopause Specialist</option>
+                            <option value="Integrative / Functional Medicine">Integrative / Functional Medicine</option>
+                            <option value="Other">Other (please specify)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -1056,56 +1094,82 @@
                     </div>
                     <div class="form-group">
                         <label for="clinState">State</label>
-                        <input type="text" id="clinState" name="state"
-                               placeholder="e.g. CA" required maxlength="2"
-                               autocomplete="address-level1">
+                        <select id="clinState" name="state" class="form-select" required autocomplete="address-level1">
+                            <option value="" disabled selected>Select</option>
+                            <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option>
+                            <option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option>
+                            <option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option>
+                            <option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+                            <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option>
+                            <option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option>
+                            <option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option>
+                            <option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option>
+                            <option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
+                            <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option>
+                            <option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option>
+                            <option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option>
+                            <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option>
+                            <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option>
+                            <option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                            <option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option>
+                            <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                            <option value="PR">PR</option><option value="GU">GU</option><option value="VI">VI</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="clinWebsite">Website or NPI <span class="label-optional">(optional)</span></label>
-                        <input type="text" id="clinWebsite" name="websiteOrNpi"
-                               placeholder="Website URL or NPI number">
+                    <div class="form-row">
+                        <div class="form-group form-group--flex">
+                            <label for="clinWebsite">Website <span class="label-optional">(at least one)</span></label>
+                            <input type="url" id="clinWebsite" name="website"
+                                   placeholder="https://...">
+                        </div>
+                        <div class="form-group form-group--flex">
+                            <label for="clinNpi">NPI <span class="label-optional">(at least one)</span></label>
+                            <input type="text" id="clinNpi" name="npi"
+                                   placeholder="10-digit NPI" maxlength="10"
+                                   pattern="[0-9]{10}" inputmode="numeric">
+                        </div>
                     </div>
 
                     <fieldset class="form-fieldset">
                         <legend class="form-fieldset-legend">What are you looking for? <span class="label-optional">(select all that apply)</span></legend>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="clinical-summary">
+                                <input type="checkbox" name="lookingFor" value="Clinical Summary">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Clinical summary / rationale</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="ingredients-safety">
+                                <input type="checkbox" name="lookingFor" value="Ingredients Safety">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Ingredient list and safety considerations</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="bench-data">
+                                <input type="checkbox" name="lookingFor" value="Bench Data">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">In vitro or bench data</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="patient-handouts">
+                                <input type="checkbox" name="lookingFor" value="Patient Handouts">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Patient handouts / usage guidance</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="evaluation-program">
+                                <input type="checkbox" name="lookingFor" value="Evaluation Program">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Evaluation program details</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="lookingFor" value="other">
+                                <input type="checkbox" name="lookingFor" value="Other">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Other</span>
                             </label>
@@ -1116,11 +1180,11 @@
                         <label for="clinVolume">Relevant Patient Volume <span class="label-optional">(optional)</span></label>
                         <select id="clinVolume" name="patientVolume" class="form-select">
                             <option value="" disabled selected>Select</option>
-                            <option value="1-25">1–25 / month</option>
-                            <option value="26-50">26–50 / month</option>
-                            <option value="51-100">51–100 / month</option>
-                            <option value="101-250">101–250 / month</option>
-                            <option value="250+">250+ / month</option>
+                            <option value="1-25/month">1–25 / month</option>
+                            <option value="26-50/month">26–50 / month</option>
+                            <option value="51-100/month">51–100 / month</option>
+                            <option value="101-250/month">101–250 / month</option>
+                            <option value="250+/month">250+ / month</option>
                         </select>
                     </div>
 
@@ -1137,6 +1201,10 @@
                     <input type="hidden" name="utm_campaign">
                     <input type="hidden" name="utm_term">
                     <input type="hidden" name="utm_content">
+                    <input type="hidden" name="submissionIp" class="tracking-ip">
+                    <input type="hidden" name="userAgent" class="tracking-ua">
+                    <input type="hidden" name="referrerUrl" class="tracking-referrer">
+                    <input type="hidden" name="pageUrl" class="tracking-page">
 
                     <button type="submit" class="form-submit">Submit</button>
                 </form>
@@ -1153,6 +1221,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Hidden iframe for Web-to-Lead submission -->
+    <iframe name="sfLeadFrame" id="sfLeadFrame" style="display:none" aria-hidden="true"></iframe>
 
     <script>
         (function () {
@@ -1172,6 +1243,121 @@
             // ── Analytics Stubs ──
             function trackEvent(name, data) {
                 console.log('[Privé Analytics]', name, data || {});
+            }
+
+            // ── Tracking Fields ──
+            document.querySelectorAll('.tracking-ua').forEach(function (el) {
+                el.value = navigator.userAgent;
+            });
+            document.querySelectorAll('.tracking-referrer').forEach(function (el) {
+                el.value = document.referrer;
+            });
+            document.querySelectorAll('.tracking-page').forEach(function (el) {
+                el.value = window.location.href;
+            });
+            try {
+                fetch('https://api.ipify.org?format=json')
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        document.querySelectorAll('.tracking-ip').forEach(function (el) {
+                            el.value = data.ip;
+                        });
+                    })
+                    .catch(function () {});
+            } catch (e) {}
+
+            // ── Web-to-Lead Configuration ──
+            var SF_CONFIG = {
+                oid: '00Dfh000005vIw0EAE',
+                retURL: window.location.origin,
+                patientRecordTypeId: '012Vu000004SDfy',
+                clinicianRecordTypeId: '012Vu000004SDfx',
+                businessId: 'a06Vu00000rnKzzIAE',
+                fields: {
+                    UTM_Source__c: '00NVu00000JoZssMAF',
+                    UTM_Medium__c: '00NVu00000JoZsrMAF',
+                    UTM_Campaign__c: '00NVu00000JoZspMAF',
+                    UTM_Term__c: '00NVu00000JoZstMAF',
+                    UTM_Content__c: '00NVu00000JoZsqMAF',
+                    Submission_IP__c: '00NVu00000JoZsoMAF',
+                    User_Agent__c: '00NVu00000JoZsuMAF',
+                    Referrer_URL__c: '00NVu00000JoZsmMAF',
+                    Age_Range__c: '00NVu00000JoZsbMAF',
+                    Contributing_Factors__c: '00NVu00000JoZsgMAF',
+                    Known_Sensitivities__c: '00NVu00000JoZsiMAF',
+                    Consent_Privacy__c: '00NVu00000JoZseMAF',
+                    Consent_Medical__c: '00NVu00000JoZsdMAF',
+                    Consent_Feedback__c: '00NVu00000JoZscMAF',
+                    Credentials__c: '00NVu00000JoZshMAF',
+                    Specialty__c: '00NVu00000JoZsnMAF',
+                    NPI__c: '00NVu00000JoZskMAF',
+                    Looking_For__c: '00NVu00000JoZsjMAF',
+                    Patient_Volume__c: '00NVu00000JoZslMAF',
+                    Consent_Professional__c: '00NVu00000JoZsfMAF',
+                    Business__c: '00NVu000008sMDRMA2'
+                }
+            };
+
+            function submitToSalesforce(data) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
+                form.target = 'sfLeadFrame';
+                form.style.display = 'none';
+
+                function addField(name, value) {
+                    if (value === undefined || value === null) return;
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    form.appendChild(input);
+                }
+
+                // Standard Web-to-Lead fields
+                addField('oid', SF_CONFIG.oid);
+                addField('retURL', SF_CONFIG.retURL);
+                addField('first_name', data.firstName || '');
+                addField('last_name', data.lastName || '');
+                addField('email', data.email || '');
+                addField('phone', data.phone || '');
+                addField('country_code', 'US');
+                addField('state_code', data.state || '');
+                addField('company', data.company || '[Individual]');
+                addField('URL', data.website || '');
+                addField('lead_source', 'Website');
+                addField('description', data.description || '');
+                addField('recordType', data.recordTypeId || '');
+
+                // Custom fields via Salesforce field IDs
+                var fields = SF_CONFIG.fields;
+                addField(fields.UTM_Source__c, data.utm_source || '');
+                addField(fields.UTM_Medium__c, data.utm_medium || '');
+                addField(fields.UTM_Campaign__c, data.utm_campaign || '');
+                addField(fields.UTM_Term__c, data.utm_term || '');
+                addField(fields.UTM_Content__c, data.utm_content || '');
+                addField(fields.Submission_IP__c, data.submissionIp || '');
+                addField(fields.User_Agent__c, data.userAgent || '');
+                addField(fields.Referrer_URL__c, data.referrerUrl || '');
+                addField(fields.Business__c, SF_CONFIG.businessId);
+
+                // Form-specific custom fields
+                if (data.ageRange) addField(fields.Age_Range__c, data.ageRange);
+                if (data.factors) addField(fields.Contributing_Factors__c, Array.isArray(data.factors) ? data.factors.join(';') : data.factors);
+                if (data.sensitivities) addField(fields.Known_Sensitivities__c, data.sensitivities);
+                if (data.consentPrivacy) addField(fields.Consent_Privacy__c, '1');
+                if (data.consentMedical) addField(fields.Consent_Medical__c, '1');
+                if (data.feedbackCommit) addField(fields.Consent_Feedback__c, '1');
+                if (data.credentials) addField(fields.Credentials__c, data.credentials);
+                if (data.specialty) addField(fields.Specialty__c, data.specialty);
+                if (data.npi) addField(fields.NPI__c, data.npi);
+                if (data.lookingFor) addField(fields.Looking_For__c, Array.isArray(data.lookingFor) ? data.lookingFor.join(';') : data.lookingFor);
+                if (data.patientVolume) addField(fields.Patient_Volume__c, data.patientVolume);
+                if (data.clinConsent) addField(fields.Consent_Professional__c, '1');
+
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
             }
 
             // ── Customer Modal Elements ──
@@ -1375,14 +1561,21 @@
                 var factors = allData.factors;
                 if (factors) {
                     var list = Array.isArray(factors) ? factors : [factors];
-                    if (list.indexOf('cancer-treatment') !== -1) cohort.push('oncology-recovery');
-                    if (list.indexOf('hormonal') !== -1) cohort.push('hormonal-changes');
-                    if (list.indexOf('post-surgical') !== -1) cohort.push('post-surgical');
-                    if (list.indexOf('dryness-sensitivity') !== -1 || list.indexOf('recurrent-irritation') !== -1) cohort.push('general-sensitivity');
+                    if (list.indexOf('Cancer Treatment') !== -1) cohort.push('oncology-recovery');
+                    if (list.indexOf('Hormonal Changes') !== -1) cohort.push('hormonal-changes');
+                    if (list.indexOf('Post-Surgical Healing') !== -1) cohort.push('post-surgical');
+                    if (list.indexOf('Chronic Dryness/Sensitivity') !== -1 || list.indexOf('Recurrent Irritation') !== -1) cohort.push('general-sensitivity');
                 }
 
                 trackEvent('step2_submit', { form: 'patient', cohort: cohort });
                 trackEvent('trial_request', { data: allData, cohort: cohort });
+
+                allData.company = '[Individual]';
+                allData.description = allData.goal || '';
+                allData.ageRange = allData.ageRange || '';
+                allData.recordTypeId = SF_CONFIG.patientRecordTypeId;
+                submitToSalesforce(allData);
+
                 showCustomerStep('confirmation');
             });
 
@@ -1391,11 +1584,28 @@
                 e.preventDefault();
                 if (!validateForm(clinicianForm)) return;
 
+                // Custom validation: at least one of Website or NPI required
+                var websiteEl = document.getElementById('clinWebsite');
+                var npiEl = document.getElementById('clinNpi');
+                var websiteGroup = websiteEl.closest('.form-group');
+                var npiGroup = npiEl.closest('.form-group');
+                websiteGroup.classList.remove('has-error');
+                npiGroup.classList.remove('has-error');
+                if (!websiteEl.value.trim() && !npiEl.value.trim()) {
+                    websiteGroup.classList.add('has-error');
+                    npiGroup.classList.add('has-error');
+                    return;
+                }
+
                 var clinData = collectFormData(clinicianForm);
                 trackEvent('clinician_submit', {
                     data: clinData,
                     cohort: [clinData.credentials, clinData.specialty, clinData.state].filter(Boolean)
                 });
+
+                clinData.company = clinData.practice || '';
+                clinData.recordTypeId = SF_CONFIG.clinicianRecordTypeId;
+                submitToSalesforce(clinData);
 
                 clinicianFormStepEl.style.display = 'none';
                 clinicianConfirmEl.style.display = 'block';
