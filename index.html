@@ -914,6 +914,17 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="patientGender">Gender</label>
+                        <select id="patientGender" name="gender" class="form-select" required>
+                            <option value="" disabled>Select</option>
+                            <option value="Woman" selected>Woman</option>
+                            <option value="Man">Man</option>
+                            <option value="Non-binary / Other">Non-binary / Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="patientAge">Age Range</label>
                         <select id="patientAge" name="ageRange" class="form-select" required>
                             <option value="" disabled selected>Select</option>
@@ -1300,7 +1311,8 @@
                     Looking_For__c: '00NVu00000JoZsjMAF',
                     Patient_Volume__c: '00NVu00000JoZslMAF',
                     Consent_Professional__c: '00NVu00000JoZsfMAF',
-                    Business__c: '00NVu000008sMDRMA2'
+                    Business__c: '00NVu000008sMDRMA2',
+                    Gender__c: '00NVu00000L6F9xMAF'
                 }
             };
 
@@ -1348,6 +1360,7 @@
                 addField(fields.Business__c, SF_CONFIG.businessId);
 
                 // Form-specific custom fields
+                if (data.gender) addField(fields.Gender__c, data.gender);
                 if (data.ageRange) addField(fields.Age_Range__c, data.ageRange);
                 if (data.factors) addField(fields.Contributing_Factors__c, Array.isArray(data.factors) ? data.factors.join(';') : data.factors);
                 if (data.sensitivities) addField(fields.Known_Sensitivities__c, data.sensitivities);
