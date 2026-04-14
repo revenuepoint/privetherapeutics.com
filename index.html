@@ -824,12 +824,18 @@
                 <h2 class="modal-title" id="customerModalTitle">Active Recovery Serum</h2>
                 <div class="modal-preamble-item">
                     <span class="modal-preamble-label">What it is</span>
-                    <p class="modal-preamble-text">A topical restorative treatment designed to support compromised, sensitive skin and improve comfort and resilience.</p>
+                    <p class="modal-preamble-text">A topical restorative treatment designed for Highly Sensitive Skin+ to support comfort, hydration, and barrier feel in delicate, external areas.</p>
+                </div>
+                <div class="modal-preamble-item">
+                    <span class="modal-preamble-label">Highly Sensitive Skin+</span>
+                    <p class="modal-preamble-text">Skin that is biologically vulnerable due to medical treatment, hormonal shifts, or natural predisposition, where moisture and barrier function are easily disrupted.</p>
                 </div>
                 <div class="modal-preamble-item">
                     <span class="modal-preamble-label">Where it's intended to be used</span>
-                    <p class="modal-preamble-text">External skin including intimate skin regions and other delicate areas affected by medical treatment, friction, dryness, or irritation.</p>
+                    <p class="modal-preamble-text">External skin including intimate skin regions and other delicate areas affected by medical treatment, friction, dryness, or irritation, plus any external skin zone needing repair and renewal.</p>
+                    <p class="modal-preamble-text" style="margin-top:0.25em;">External use only.</p>
                 </div>
+                <p class="modal-preamble-text" style="font-size:0.65rem; color:#A09A94; margin-top:0.75em; line-height:1.4;">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
             </div>
 
             <!-- Step Indicator -->
@@ -878,7 +884,7 @@
 
             <!-- STEP 2: Patient Intake -->
             <div id="step2" style="display:none;">
-                <p class="modal-subtitle">We ask a few questions to prioritize limited inventory.</p>
+                <p class="modal-subtitle">Takes under a minute. Private and confidential. We never sell your information.</p>
                 <form id="patientForm" novalidate>
                     <div class="form-row">
                         <div class="form-group form-group--flex">
@@ -916,8 +922,8 @@
                     <div class="form-group">
                         <label for="patientGender">Gender</label>
                         <select id="patientGender" name="gender" class="form-select" required>
-                            <option value="" disabled>Select</option>
-                            <option value="Woman" selected>Woman</option>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Woman">Woman</option>
                             <option value="Man">Man</option>
                             <option value="Non-binary / Other">Non-binary / Other</option>
                             <option value="Prefer not to say">Prefer not to say</option>
@@ -939,7 +945,7 @@
                     </div>
 
                     <fieldset class="form-fieldset">
-                        <legend class="form-fieldset-legend">Contributing Factors <span class="label-optional">(select all that apply)</span></legend>
+                        <legend class="form-fieldset-legend">What's driving your skin sensitivity/discomfort right now? <span class="label-optional">(select all that apply)</span></legend>
                         <div class="form-checkbox">
                             <label class="checkbox-label">
                                 <input type="checkbox" name="factors" value="Hormonal Changes">
@@ -975,10 +981,71 @@
                                 <span class="checkbox-text">Recurrent irritation</span>
                             </label>
                         </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="factors" value="Other" id="factorsOtherCheck">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Other</span>
+                            </label>
+                        </div>
+                        <div class="form-group" id="factorsOtherGroup" style="display:none; margin-top:0.25rem; padding-left:1.75rem;">
+                            <input type="text" id="factorsOtherText" name="factorsOther"
+                                   placeholder="Please describe...">
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-fieldset-legend">Where do you hope to use it? <span class="label-optional">(optional, select all that apply)</span></legend>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="External Intimate Skin">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">External intimate skin (vulvar/perineal)</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="Breast-Region Skin">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Breast-region skin</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="Post-Treatment Skin Zones">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Post-treatment skin zones</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="Post-Procedure/Post-Surgical Areas">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Post-procedure or post-surgical areas</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="High-Friction/Chronically Dry Areas">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">High-friction or chronically dry areas</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="intendedUseArea" value="Other" id="useAreaOtherCheck">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Other</span>
+                            </label>
+                        </div>
+                        <div class="form-group" id="useAreaOtherGroup" style="display:none; margin-top:0.25rem; padding-left:1.75rem;">
+                            <input type="text" id="useAreaOtherText" name="intendedUseAreaOther"
+                                   placeholder="Please describe...">
+                        </div>
                     </fieldset>
 
                     <div class="form-group">
-                        <label for="patientGoal">What are you trying to improve most right now?</label>
+                        <label for="patientGoal">What matters most to you right now? <span class="label-optional">(optional)</span></label>
                         <input type="text" id="patientGoal" name="goal"
                                placeholder="Tell us what matters most to you...">
                     </div>
@@ -1018,11 +1085,14 @@
                         <label class="checkbox-label">
                             <input type="checkbox" id="feedbackCommit" name="feedbackCommit" required>
                             <span class="checkbox-custom"></span>
-                            <span class="checkbox-text">If selected, I agree to sharing my experience — positive or negative — to help us continue to improve.</span>
+                            <span class="checkbox-text">If selected, I'm open to sharing brief feedback to help us improve.</span>
                         </label>
                     </div>
 
+                    <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; margin-top:1rem; line-height:1.4;">Complimentary units are limited. One per person/household. We may follow up to confirm shipping details.</p>
+
                     <button type="submit" class="form-submit">Submit</button>
+                    <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; text-align:center; margin-top:0.5rem;">You'll receive a confirmation email shortly.</p>
                 </form>
             </div>
 
@@ -1048,7 +1118,21 @@
             <!-- Clinician Form -->
             <div id="clinicianFormStep">
                 <h2 class="modal-title" id="clinicianModalTitle">For Clinicians</h2>
-                <p class="modal-subtitle">Request clinical information, discuss patient suitability, or participate in our early evaluation program.</p>
+                <p class="modal-subtitle">Request professional materials for Active Recovery Serum, a topical restorative treatment for Highly Sensitive Skin+ intended for delicate, external areas, including external vulvar, perineal, and breast-region skin. Use in practice as an external-use adjunct to standard skin care routines to support comfort and barrier recovery guidance in treatment-affected, hormonally vulnerable, and post-procedure skin (laser, peel, microneedling). Preclinical in vitro data available on request.</p>
+                <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; margin-top:0.5rem; line-height:1.4;">We do not sell clinician data. We use your information only to send requested materials and follow up about evaluation participation. Unsubscribe anytime.</p>
+
+                <div class="modal-preamble-item" style="margin-top:1rem;">
+                    <span class="modal-preamble-label">What you'll receive</span>
+                    <ul style="list-style:disc; padding-left:1.25rem; margin:0.5rem 0 0 0; font-size:0.8rem; color:#5C5552; line-height:1.8;">
+                        <li>Clinical overview PDF (intended use, protocols, safety considerations)</li>
+                        <li>Full INCI and ingredient safety notes</li>
+                        <li>Patient handout (external-use guidance, when to stop, when to refer)</li>
+                        <li>Preclinical in vitro data summary (cell-based)</li>
+                        <li>Evaluation program details (optional)</li>
+                        <li>Full sample</li>
+                    </ul>
+                </div>
+
                 <form id="clinicianForm" novalidate>
                     <div class="form-row">
                         <div class="form-group form-group--flex">
@@ -1095,6 +1179,8 @@
                             <option value="Urology">Urology</option>
                             <option value="Dermatology">Dermatology</option>
                             <option value="Plastic Surgery">Plastic Surgery</option>
+                            <option value="Aesthetic Dermatology / Cosmetic Dermatology">Aesthetic Dermatology / Cosmetic Dermatology</option>
+                            <option value="MedSpa / Aesthetic Practice">MedSpa / Aesthetic Practice</option>
                             <option value="Family Medicine / Primary Care">Family Medicine / Primary Care</option>
                             <option value="Internal Medicine">Internal Medicine</option>
                             <option value="Pelvic Floor Physical Therapy">Pelvic Floor Physical Therapy</option>
@@ -1167,7 +1253,7 @@
                             <label class="checkbox-label">
                                 <input type="checkbox" name="lookingFor" value="Bench Data">
                                 <span class="checkbox-custom"></span>
-                                <span class="checkbox-text">In vitro or bench data</span>
+                                <span class="checkbox-text">Preclinical in vitro / bench data</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
@@ -1182,6 +1268,13 @@
                                 <input type="checkbox" name="lookingFor" value="Evaluation Program">
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-text">Evaluation program details</span>
+                            </label>
+                        </div>
+                        <div class="form-checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="lookingFor" value="Post-Procedure Recovery Support">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Post-procedure recovery support (laser, peel, microneedling)</span>
                             </label>
                         </div>
                         <div class="form-checkbox">
@@ -1224,6 +1317,7 @@
                     <input type="hidden" name="pageUrl" class="tracking-page">
 
                     <button type="submit" class="form-submit">Submit</button>
+                    <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; text-align:center; margin-top:0.5rem;">We typically respond within 1–2 business days with the materials you selected.</p>
                 </form>
             </div>
 
@@ -1312,7 +1406,9 @@
                     Patient_Volume__c: '00NVu00000JoZslMAF',
                     Consent_Professional__c: '00NVu00000JoZsfMAF',
                     Business__c: '00NVu000008sMDRMA2',
-                    Gender__c: '00NVu00000L6F9xMAF'
+                    Gender__c: '00NVu00000L6F9xMAF',
+                    Intended_Use_Area__c: '00NVu00000MQmp8MAD',
+                    Contributing_Factors_Other__c: '00NVu00000MQmp7MAD'
                 }
             };
 
@@ -1364,6 +1460,8 @@
                 if (data.ageRange) addField(fields.Age_Range__c, data.ageRange);
                 if (data.factors) addField(fields.Contributing_Factors__c, Array.isArray(data.factors) ? data.factors.join(';') : data.factors);
                 if (data.sensitivities) addField(fields.Known_Sensitivities__c, data.sensitivities);
+                if (data.intendedUseArea) addField(fields.Intended_Use_Area__c, Array.isArray(data.intendedUseArea) ? data.intendedUseArea.join(';') : data.intendedUseArea);
+                if (data.factorsOther) addField(fields.Contributing_Factors_Other__c, data.factorsOther);
                 if (data.consentPrivacy) addField(fields.Consent_Privacy__c, '1');
                 if (data.consentMedical) addField(fields.Consent_Medical__c, '1');
                 if (data.feedbackCommit) addField(fields.Consent_Feedback__c, '1');
@@ -1443,6 +1541,10 @@
                 document.querySelectorAll('#customerModal .has-error').forEach(function (el) {
                     el.classList.remove('has-error');
                 });
+                var factorsOtherGroup = document.getElementById('factorsOtherGroup');
+                var useAreaOtherGroup = document.getElementById('useAreaOtherGroup');
+                if (factorsOtherGroup) factorsOtherGroup.style.display = 'none';
+                if (useAreaOtherGroup) useAreaOtherGroup.style.display = 'none';
                 leadData = {};
                 showCustomerStep('step1');
             }
@@ -1557,6 +1659,19 @@
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') closeActiveModal();
             });
+
+            // ── Other Checkbox Toggle ──
+            function setupOtherToggle(checkboxId, groupId) {
+                var cb = document.getElementById(checkboxId);
+                var group = document.getElementById(groupId);
+                if (cb && group) {
+                    cb.addEventListener('change', function () {
+                        group.style.display = cb.checked ? 'block' : 'none';
+                    });
+                }
+            }
+            setupOtherToggle('factorsOtherCheck', 'factorsOtherGroup');
+            setupOtherToggle('useAreaOtherCheck', 'useAreaOtherGroup');
 
             // ── Step 1 Submit ──
             step1Form.addEventListener('submit', function (e) {
