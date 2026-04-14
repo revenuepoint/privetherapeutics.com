@@ -1091,6 +1091,8 @@
 
                     <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; margin-top:1rem; line-height:1.4;">Complimentary units are limited. One per person/household. We may follow up to confirm shipping details.</p>
 
+                    <div id="patientRecaptcha" class="g-recaptcha" style="margin-top:1rem;"></div>
+
                     <button type="submit" class="form-submit">Submit</button>
                     <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; text-align:center; margin-top:0.5rem;">You'll receive a confirmation email shortly.</p>
                 </form>
@@ -1297,6 +1299,8 @@
                     <input type="hidden" name="referrerUrl" class="tracking-referrer">
                     <input type="hidden" name="pageUrl" class="tracking-page">
 
+                    <div id="clinicianRecaptcha" class="g-recaptcha" style="margin-top:1rem;"></div>
+
                     <button type="submit" class="form-submit">Submit</button>
                     <p class="modal-microcopy" style="font-size:0.7rem; color:#A09A94; text-align:center; margin-top:0.5rem;">We typically respond within 1–2 business days with the materials you selected.</p>
                 </form>
@@ -1313,6 +1317,19 @@
             </div>
         </div>
     </div>
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+    <script>
+        var recaptchaReady = false;
+        var recaptchaWidgets = {};
+        function onRecaptchaLoad() { recaptchaReady = true; }
+        function ensureRecaptcha(containerId, key) {
+            if (!recaptchaReady || recaptchaWidgets[key] !== undefined) return;
+            recaptchaWidgets[key] = grecaptcha.render(containerId, {
+                sitekey: '6Lc6KrcsAAAAAEqRCiivgww8MFG9LRgXAslbcv4A'
+            });
+        }
+    </script>
 
     <!-- Hidden iframe for Web-to-Lead submission -->
     <iframe name="sfLeadFrame" id="sfLeadFrame" style="display:none" aria-hidden="true"></iframe>
@@ -1360,7 +1377,7 @@
 
             // ── Web-to-Lead Configuration ──
             var SF_CONFIG = {
-                oid: '00Dfh000005vIw0EAE',
+                oid: '00Dfh000005vIw0',
                 retURL: window.location.origin,
                 patientRecordTypeId: '012Vu000004SDfy',
                 clinicianRecordTypeId: '012Vu000004SDfx',
@@ -1394,68 +1411,93 @@
             };
 
             function submitToSalesforce(data) {
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
-                form.target = 'sfLeadFrame';
-                form.style.display = 'none';
+                return new Promise(function (resolve, reject) {
+                    var iframe = document.getElementById('sfLeadFrame');
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=' + SF_CONFIG.oid;
+                    form.target = 'sfLeadFrame';
+                    form.style.display = 'none';
 
-                function addField(name, value) {
-                    if (value === undefined || value === null) return;
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = name;
-                    input.value = value;
-                    form.appendChild(input);
-                }
+                    function addField(name, value) {
+                        if (value === undefined || value === null) return;
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = name;
+                        input.value = value;
+                        form.appendChild(input);
+                    }
 
-                // Standard Web-to-Lead fields
-                addField('oid', SF_CONFIG.oid);
-                addField('retURL', SF_CONFIG.retURL);
-                addField('first_name', data.firstName || '');
-                addField('last_name', data.lastName || '');
-                addField('email', data.email || '');
-                addField('phone', data.phone || '');
-                addField('country_code', 'US');
-                addField('state_code', data.state || '');
-                addField('company', data.company || '[Individual]');
-                addField('URL', data.website || '');
-                addField('lead_source', 'Website');
-                addField('description', data.description || '');
-                addField('recordType', data.recordTypeId || '');
+                    // Salesforce reCAPTCHA captcha_settings (required for Web-to-Lead with reCAPTCHA)
+                    var captchaSettings = {
+                        keyname: 'privetherapeutics',
+                        fallback: 'true',
+                        orgId: SF_CONFIG.oid,
+                        ts: JSON.stringify(new Date().getTime())
+                    };
+                    addField('captcha_settings', JSON.stringify(captchaSettings));
 
-                // Custom fields via Salesforce field IDs
-                var fields = SF_CONFIG.fields;
-                addField(fields.UTM_Source__c, data.utm_source || '');
-                addField(fields.UTM_Medium__c, data.utm_medium || '');
-                addField(fields.UTM_Campaign__c, data.utm_campaign || '');
-                addField(fields.UTM_Term__c, data.utm_term || '');
-                addField(fields.UTM_Content__c, data.utm_content || '');
-                addField(fields.Submission_IP__c, data.submissionIp || '');
-                addField(fields.User_Agent__c, data.userAgent || '');
-                addField(fields.Referrer_URL__c, data.referrerUrl || '');
-                addField(fields.Business__c, SF_CONFIG.businessId);
+                    // Standard Web-to-Lead fields
+                    addField('oid', SF_CONFIG.oid);
+                    addField('retURL', SF_CONFIG.retURL);
+                    addField('first_name', data.firstName || '');
+                    addField('last_name', data.lastName || '');
+                    addField('email', data.email || '');
+                    addField('phone', data.phone || '');
+                    addField('country_code', 'US');
+                    addField('state_code', data.state || '');
+                    addField('company', data.company || '[Individual]');
+                    addField('URL', data.website || '');
+                    addField('lead_source', 'Website');
+                    addField('description', data.description || '');
+                    addField('recordType', data.recordTypeId || '');
+                    if (data.recaptchaResponse) addField('g-recaptcha-response', data.recaptchaResponse);
 
-                // Form-specific custom fields
-                if (data.gender) addField(fields.Gender__c, data.gender);
-                if (data.ageRange) addField(fields.Age_Range__c, data.ageRange);
-                if (data.factors) addField(fields.Contributing_Factors__c, Array.isArray(data.factors) ? data.factors.join(';') : data.factors);
-                if (data.sensitivities) addField(fields.Known_Sensitivities__c, data.sensitivities);
-                if (data.intendedUseArea) addField(fields.Intended_Use_Area__c, Array.isArray(data.intendedUseArea) ? data.intendedUseArea.join(';') : data.intendedUseArea);
-                if (data.factorsOther) addField(fields.Contributing_Factors_Other__c, data.factorsOther);
-                if (data.consentPrivacy) addField(fields.Consent_Privacy__c, '1');
-                if (data.consentMedical) addField(fields.Consent_Medical__c, '1');
-                if (data.feedbackCommit) addField(fields.Consent_Feedback__c, '1');
-                if (data.credentials) addField(fields.Credentials__c, data.credentials);
-                if (data.specialty) addField(fields.Specialty__c, data.specialty);
-                if (data.npi) addField(fields.NPI__c, data.npi);
-                if (data.lookingFor) addField(fields.Looking_For__c, Array.isArray(data.lookingFor) ? data.lookingFor.join(';') : data.lookingFor);
-                if (data.patientVolume) addField(fields.Patient_Volume__c, data.patientVolume);
-                if (data.clinConsent) addField(fields.Consent_Professional__c, '1');
+                    // Custom fields via Salesforce field IDs
+                    var fields = SF_CONFIG.fields;
+                    addField(fields.UTM_Source__c, data.utm_source || '');
+                    addField(fields.UTM_Medium__c, data.utm_medium || '');
+                    addField(fields.UTM_Campaign__c, data.utm_campaign || '');
+                    addField(fields.UTM_Term__c, data.utm_term || '');
+                    addField(fields.UTM_Content__c, data.utm_content || '');
+                    addField(fields.Submission_IP__c, data.submissionIp || '');
+                    addField(fields.User_Agent__c, data.userAgent || '');
+                    addField(fields.Referrer_URL__c, data.referrerUrl || '');
+                    addField(fields.Business__c, SF_CONFIG.businessId);
 
-                document.body.appendChild(form);
-                form.submit();
-                document.body.removeChild(form);
+                    // Form-specific custom fields
+                    if (data.gender) addField(fields.Gender__c, data.gender);
+                    if (data.ageRange) addField(fields.Age_Range__c, data.ageRange);
+                    if (data.factors) addField(fields.Contributing_Factors__c, Array.isArray(data.factors) ? data.factors.join(';') : data.factors);
+                    if (data.sensitivities) addField(fields.Known_Sensitivities__c, data.sensitivities);
+                    if (data.intendedUseArea) addField(fields.Intended_Use_Area__c, Array.isArray(data.intendedUseArea) ? data.intendedUseArea.join(';') : data.intendedUseArea);
+                    if (data.factorsOther) addField(fields.Contributing_Factors_Other__c, data.factorsOther);
+                    if (data.consentPrivacy) addField(fields.Consent_Privacy__c, '1');
+                    if (data.consentMedical) addField(fields.Consent_Medical__c, '1');
+                    if (data.feedbackCommit) addField(fields.Consent_Feedback__c, '1');
+                    if (data.credentials) addField(fields.Credentials__c, data.credentials);
+                    if (data.specialty) addField(fields.Specialty__c, data.specialty);
+                    if (data.npi) addField(fields.NPI__c, data.npi);
+                    if (data.lookingFor) addField(fields.Looking_For__c, Array.isArray(data.lookingFor) ? data.lookingFor.join(';') : data.lookingFor);
+                    if (data.patientVolume) addField(fields.Patient_Volume__c, data.patientVolume);
+                    if (data.clinConsent) addField(fields.Consent_Professional__c, '1');
+
+                    var timeout = setTimeout(function () {
+                        iframe.removeEventListener('load', onLoad);
+                        reject(new Error('Submission timed out'));
+                    }, 15000);
+
+                    function onLoad() {
+                        clearTimeout(timeout);
+                        iframe.removeEventListener('load', onLoad);
+                        resolve();
+                    }
+                    iframe.addEventListener('load', onLoad);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                    document.body.removeChild(form);
+                });
             }
 
             // ── Customer Modal Elements ──
@@ -1526,6 +1568,8 @@
                 var useAreaOtherGroup = document.getElementById('useAreaOtherGroup');
                 if (factorsOtherGroup) factorsOtherGroup.style.display = 'none';
                 if (useAreaOtherGroup) useAreaOtherGroup.style.display = 'none';
+                if (recaptchaReady && recaptchaWidgets.patient !== undefined) grecaptcha.reset(recaptchaWidgets.patient);
+                document.getElementById('patientRecaptcha').style.border = 'none';
                 leadData = {};
                 showCustomerStep('step1');
             }
@@ -1549,6 +1593,7 @@
                     stepDots[0].classList.add('is-active');
                     stepDots[1].classList.add('is-active');
                     customerOverlay.querySelector('.modal').scrollTop = 0;
+                    ensureRecaptcha('patientRecaptcha', 'patient');
                 } else if (step === 'confirmation') {
                     customerConfirmEl.style.display = 'block';
                     preambleEl.style.display = 'none';
@@ -1568,6 +1613,8 @@
                 });
                 clinicianFormStepEl.style.display = 'block';
                 clinicianConfirmEl.style.display = 'none';
+                if (recaptchaReady && recaptchaWidgets.clinician !== undefined) grecaptcha.reset(recaptchaWidgets.clinician);
+                document.getElementById('clinicianRecaptcha').style.border = 'none';
             }
 
             // ── Validation ──
@@ -1628,6 +1675,7 @@
             openClinicianBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 openModal(clinicianOverlay);
+                ensureRecaptcha('clinicianRecaptcha', 'clinician');
                 trackEvent('form_start', { form: 'clinician' });
             });
             clinicianCloseBtn.addEventListener('click', closeClinicianModal);
@@ -1668,6 +1716,11 @@
             patientForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (!validateForm(patientForm)) return;
+                if (recaptchaReady && recaptchaWidgets.patient !== undefined && !grecaptcha.getResponse(recaptchaWidgets.patient)) {
+                    document.getElementById('patientRecaptcha').style.border = '1px solid #c44';
+                    return;
+                }
+                document.getElementById('patientRecaptcha').style.border = 'none';
 
                 var patientData = collectFormData(patientForm);
                 var allData = Object.assign({}, leadData, patientData);
@@ -1689,15 +1742,33 @@
                 allData.description = allData.goal || '';
                 allData.ageRange = allData.ageRange || '';
                 allData.recordTypeId = SF_CONFIG.patientRecordTypeId;
-                submitToSalesforce(allData);
+                if (recaptchaReady && recaptchaWidgets.patient !== undefined) {
+                    allData.recaptchaResponse = grecaptcha.getResponse(recaptchaWidgets.patient);
+                }
+                var submitBtn = patientForm.querySelector('button[type="submit"]');
+                var btnText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting…';
+                submitBtn.disabled = true;
 
-                showCustomerStep('confirmation');
+                submitToSalesforce(allData).then(function () {
+                    showCustomerStep('confirmation');
+                }).catch(function () {
+                    showCustomerStep('confirmation');
+                }).finally(function () {
+                    submitBtn.textContent = btnText;
+                    submitBtn.disabled = false;
+                });
             });
 
             // ── Clinician Form Submit ──
             clinicianForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 if (!validateForm(clinicianForm)) return;
+                if (recaptchaReady && recaptchaWidgets.clinician !== undefined && !grecaptcha.getResponse(recaptchaWidgets.clinician)) {
+                    document.getElementById('clinicianRecaptcha').style.border = '1px solid #c44';
+                    return;
+                }
+                document.getElementById('clinicianRecaptcha').style.border = 'none';
 
                 // Custom validation: at least one of Website or NPI required
                 var websiteEl = document.getElementById('clinWebsite');
@@ -1720,11 +1791,26 @@
 
                 clinData.company = clinData.practice || '';
                 clinData.recordTypeId = SF_CONFIG.clinicianRecordTypeId;
-                submitToSalesforce(clinData);
+                if (recaptchaReady && recaptchaWidgets.clinician !== undefined) {
+                    clinData.recaptchaResponse = grecaptcha.getResponse(recaptchaWidgets.clinician);
+                }
+                var submitBtn = clinicianForm.querySelector('button[type="submit"]');
+                var btnText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting…';
+                submitBtn.disabled = true;
 
-                clinicianFormStepEl.style.display = 'none';
-                clinicianConfirmEl.style.display = 'block';
-                clinicianOverlay.querySelector('.modal').scrollTop = 0;
+                submitToSalesforce(clinData).then(function () {
+                    clinicianFormStepEl.style.display = 'none';
+                    clinicianConfirmEl.style.display = 'block';
+                    clinicianOverlay.querySelector('.modal').scrollTop = 0;
+                }).catch(function () {
+                    clinicianFormStepEl.style.display = 'none';
+                    clinicianConfirmEl.style.display = 'block';
+                    clinicianOverlay.querySelector('.modal').scrollTop = 0;
+                }).finally(function () {
+                    submitBtn.textContent = btnText;
+                    submitBtn.disabled = false;
+                });
             });
         })();
     </script>
