@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tokenized personal links land here — never index. -->
+    <meta name="robots" content="noindex,nofollow">
+    <title>Shipping Address — Privé Therapeutics</title>
+    <link rel="icon" href="/assets/prive-logo.svg" type="image/svg+xml">
+    <style>
+        /* Brand tokens + form styles copied from /index.html (the source of
+           truth for the design system — keep the two in sync by hand; this
+           site deliberately has no build step). */
+        :root {
+            --color-charcoal: #51534A;
+            --color-taupe: #A59F99;
+            --color-cream: #F2ECEA;
+            --color-rose: #B07C81;
+            --color-offwhite: #FEFBFB;
+            --color-tan: #EBE1E0;
+            --color-footer-taupe: #B7ADA9;
+            --color-white: #FFFFFF;
+            --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-offwhite);
+            color: var(--color-charcoal);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 48px 20px 40px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-logo {
+            margin-bottom: 36px;
+            animation: fadeUp 0.5s ease both;
+        }
+
+        .page-logo img {
+            display: block;
+            width: 180px;
+            max-width: 60vw;
+            height: auto;
+        }
+
+        .card {
+            background: var(--color-white);
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 40px 40px;
+            animation: fadeUp 0.5s ease 0.1s both;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--color-taupe);
+            margin-bottom: 32px;
+            font-weight: 300;
+        }
+
+        /* ── Form ── */
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-taupe);
+            margin-bottom: 6px;
+        }
+
+        .label-optional {
+            font-weight: 300;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 10px;
+            color: var(--color-cream);
+        }
+
+        .form-group input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--color-cream);
+            padding: 8px 0;
+            font-size: 16px;
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+            background: transparent;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-group input::placeholder {
+            color: var(--color-cream);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-group--flex {
+            flex: 1;
+        }
+
+        .form-select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--color-cream);
+            padding: 8px 24px 8px 0;
+            font-size: 16px;
+            font-family: var(--font-primary);
+            color: var(--color-charcoal);
+            background-color: transparent;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A09A94' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            background-size: 12px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            border-bottom-color: var(--color-rose);
+        }
+
+        .form-select option[value=""][disabled] {
+            color: var(--color-cream);
+        }
+
+        .form-submit {
+            width: 100%;
+            font-family: var(--font-primary);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            background: transparent;
+            border: 1px solid var(--color-taupe);
+            padding: 14px 36px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background-color: var(--color-taupe);
+            color: var(--color-white);
+        }
+
+        .form-submit:focus-visible {
+            outline: 2px solid var(--color-rose);
+            outline-offset: 3px;
+        }
+
+        .form-submit[disabled] {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        /* ── Validation / errors ── */
+
+        .form-group.has-error input,
+        .form-group.has-error select {
+            border: 1.5px solid #C45C5C;
+            background-color: #FDF2F2;
+        }
+
+        .form-group.has-error label {
+            color: #C45C5C;
+        }
+
+        .form-error {
+            display: none;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #C45C5C;
+            margin: 16px 0 0;
+        }
+
+        .form-error.is-visible {
+            display: block;
+        }
+
+        .form-error a {
+            color: #C45C5C;
+        }
+
+        .recaptcha-slot {
+            margin-top: 4px;
+        }
+
+        /* ── Confirmation / invalid-link states ── */
+
+        .state-content {
+            text-align: center;
+            padding: 16px 0 8px;
+        }
+
+        .state-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 24px;
+        }
+
+        .state-title {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-charcoal);
+            margin-bottom: 16px;
+        }
+
+        .state-message {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--color-taupe);
+            font-weight: 300;
+        }
+
+        .state-message a {
+            color: var(--color-taupe);
+        }
+
+        .page-footer {
+            margin-top: 36px;
+            font-size: 11px;
+            font-style: italic;
+            color: var(--color-footer-taupe);
+            text-align: center;
+            font-weight: 300;
+            animation: fadeUp 0.5s ease 0.2s both;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 40px 24px 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="page-logo" href="/" aria-label="Privé Therapeutics home">
+        <img src="/assets/prive-logo.svg" alt="PRIVÉ THERAPEUTICS">
+    </a>
+
+    <main class="card">
+        <div id="formState">
+            <h1 class="card-title">Shipping Address</h1>
+            <p class="card-subtitle">Confirm where we should send your Privé Therapeutics shipment. Takes under a minute. Private and confidential.</p>
+
+            <form id="addressForm" novalidate>
+                <div class="form-group">
+                    <label for="addrStreet">Street Address</label>
+                    <input type="text" id="addrStreet" name="street" autocomplete="address-line1" maxlength="255" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addrApt">Apt / Unit <span class="label-optional">(optional)</span></label>
+                    <input type="text" id="addrApt" name="apt" autocomplete="address-line2" maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="addrCity">City</label>
+                    <input type="text" id="addrCity" name="city" autocomplete="address-level2" maxlength="40" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group form-group--flex">
+                        <label for="addrState">State</label>
+                        <select id="addrState" name="state" class="form-select" required autocomplete="address-level1">
+                            <option value="" disabled selected>Select</option>
+                            <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option>
+                            <option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option>
+                            <option value="CT">CT</option><option value="DE">DE</option><option value="DC">DC</option>
+                            <option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option>
+                            <option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option>
+                            <option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option>
+                            <option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option>
+                            <option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option>
+                            <option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option>
+                            <option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option>
+                            <option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option>
+                            <option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option>
+                            <option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option>
+                            <option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option>
+                            <option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option>
+                            <option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option>
+                            <option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option>
+                            <option value="PR">PR</option><option value="GU">GU</option><option value="VI">VI</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group--flex">
+                        <label for="addrZip">ZIP</label>
+                        <input type="text" id="addrZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" pattern="\d{5}(-\d{4})?" required>
+                    </div>
+                </div>
+
+                <!-- Honeypot: humans never see it; bots that fill it get a fake success. -->
+                <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                    <label for="addrHp">Leave this field empty</label>
+                    <input type="text" id="addrHp" name="hp" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div id="addressRecaptcha" class="recaptcha-slot"></div>
+
+                <p id="formError" class="form-error" role="alert"></p>
+
+                <button type="submit" class="form-submit" id="addressSubmit">Submit Address</button>
+            </form>
+        </div>
+
+        <div id="successState" class="state-content" hidden>
+            <div class="state-icon" aria-hidden="true">&#10003;</div>
+            <h1 class="state-title">Thank You</h1>
+            <p class="state-message">Your shipping address has been received.<br><br>Need to correct it? Just open the same link from your email again.</p>
+        </div>
+
+        <div id="invalidState" class="state-content" hidden>
+            <div class="state-icon" aria-hidden="true">&#8212;</div>
+            <h1 class="state-title">Link Not Valid</h1>
+            <p class="state-message">This link isn't valid or is no longer active. Please use the most recent link from your Privé Therapeutics email, or contact us at <a href="mailto:team@privetherapeutics.com">team@privetherapeutics.com</a>.</p>
+        </div>
+    </main>
+
+    <p class="page-footer">Privé Therapeutics &mdash; Remedy Beyond Beauty</p>
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+    <script>
+        (function () {
+            'use strict';
+
+            var API_URL = 'https://hub.greenlineingredients.com/v1/public/prive/lead-address';
+            var RECAPTCHA_SITE_KEY = '6Lc6KrcsAAAAAEqRCiivgww8MFG9LRgXAslbcv4A';
+            var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+            var token = new URLSearchParams(window.location.search).get('t') || '';
+            var formState = document.getElementById('formState');
+            var successState = document.getElementById('successState');
+            var invalidState = document.getElementById('invalidState');
+            var form = document.getElementById('addressForm');
+            var submitBtn = document.getElementById('addressSubmit');
+            var errorEl = document.getElementById('formError');
+            var recaptchaWidgetId = null;
+
+            function showState(el) {
+                formState.hidden = el !== formState;
+                successState.hidden = el !== successState;
+                invalidState.hidden = el !== invalidState;
+            }
+
+            // No token (or garbage) → don't render the form at all.
+            var tokenValid = UUID_RE.test(token);
+            if (!tokenValid) {
+                showState(invalidState);
+            }
+
+            window.onRecaptchaLoad = function () {
+                if (!tokenValid) return;
+                var container = document.getElementById('addressRecaptcha');
+                if (container && window.grecaptcha) {
+                    recaptchaWidgetId = grecaptcha.render('addressRecaptcha', {
+                        sitekey: RECAPTCHA_SITE_KEY
+                    });
+                }
+            };
+
+            function showError(html) {
+                errorEl.innerHTML = html;
+                errorEl.classList.add('is-visible');
+            }
+
+            function clearError() {
+                errorEl.innerHTML = '';
+                errorEl.classList.remove('is-visible');
+            }
+
+            // Same manual validation contract as the homepage forms.
+            function validateForm() {
+                var valid = true;
+                var fields = form.querySelectorAll('[required]');
+                for (var i = 0; i < fields.length; i++) {
+                    var field = fields[i];
+                    var group = field.closest('.form-group');
+                    var hasValue = field.value && field.value.trim();
+                    var ok = hasValue && field.checkValidity();
+                    if (group) group.classList.toggle('has-error', !ok);
+                    if (!ok) valid = false;
+                }
+                return valid;
+            }
+
+            function recaptchaResponse() {
+                if (recaptchaWidgetId === null || !window.grecaptcha) return '';
+                return grecaptcha.getResponse(recaptchaWidgetId);
+            }
+
+            function resetRecaptcha() {
+                // v2 tokens are single-use — a failed POST must mint a new one.
+                if (recaptchaWidgetId !== null && window.grecaptcha) {
+                    grecaptcha.reset(recaptchaWidgetId);
+                }
+            }
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                clearError();
+
+                if (!validateForm()) return;
+
+                var captchaToken = recaptchaResponse();
+                var captchaBox = document.getElementById('addressRecaptcha');
+                if (!captchaToken) {
+                    captchaBox.style.border = '1px solid #C45C5C';
+                    return;
+                }
+                captchaBox.style.border = 'none';
+
+                var payload = {
+                    token: token,
+                    street: form.street.value.trim(),
+                    city: form.city.value.trim(),
+                    state: form.state.value,
+                    zip: form.zip.value.trim(),
+                    recaptchaToken: captchaToken,
+                    hp: form.hp.value
+                };
+                if (form.apt.value.trim()) payload.apt = form.apt.value.trim();
+
+                var originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting…';
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(function (res) {
+                    if (res.ok) {
+                        showState(successState);
+                        window.scrollTo(0, 0);
+                        return;
+                    }
+                    return res.json().catch(function () { return {}; }).then(function (body) {
+                        var code = body && body.error;
+                        if (code === 'not_found') {
+                            showState(invalidState);
+                        } else if (code === 'captcha_failed') {
+                            showError('Please complete the verification and try again.');
+                        } else if (code === 'validation_failed' || code === 'request_failed') {
+                            showError('Please check your entries and try again.');
+                        } else {
+                            showError('Something went wrong. Please try again in a moment, or email <a href="mailto:team@privetherapeutics.com">team@privetherapeutics.com</a>.');
+                        }
+                        resetRecaptcha();
+                    });
+                }).catch(function () {
+                    showError('We couldn\'t reach the server. Please check your connection and try again, or email <a href="mailto:team@privetherapeutics.com">team@privetherapeutics.com</a>.');
+                    resetRecaptcha();
+                }).finally(function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
