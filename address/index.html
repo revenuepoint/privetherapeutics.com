@@ -227,10 +227,6 @@
             color: #C45C5C;
         }
 
-        .recaptcha-slot {
-            margin-top: 4px;
-        }
-
         /* ── Confirmation / invalid-link states ── */
 
         .state-content {
@@ -355,8 +351,6 @@
                     <input type="text" id="addrHp" name="hp" tabindex="-1" autocomplete="off">
                 </div>
 
-                <div id="addressRecaptcha" class="recaptcha-slot"></div>
-
                 <p id="formError" class="form-error" role="alert"></p>
 
                 <button type="submit" class="form-submit" id="addressSubmit">Submit Address</button>
@@ -378,13 +372,11 @@
 
     <p class="page-footer">Privé Therapeutics &mdash; Remedy Beyond Beauty</p>
 
-    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
     <script>
         (function () {
             'use strict';
 
             var API_URL = 'https://hub.greenlineingredients.com/v1/public/prive/lead-address';
-            var RECAPTCHA_SITE_KEY = '6Lc6KrcsAAAAAEqRCiivgww8MFG9LRgXAslbcv4A';
             var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
             var token = new URLSearchParams(window.location.search).get('t') || '';
@@ -394,7 +386,6 @@
             var form = document.getElementById('addressForm');
             var submitBtn = document.getElementById('addressSubmit');
             var errorEl = document.getElementById('formError');
-            var recaptchaWidgetId = null;
 
             function showState(el) {
                 formState.hidden = el !== formState;
@@ -407,16 +398,6 @@
             if (!tokenValid) {
                 showState(invalidState);
             }
-
-            window.onRecaptchaLoad = function () {
-                if (!tokenValid) return;
-                var container = document.getElementById('addressRecaptcha');
-                if (container && window.grecaptcha) {
-                    recaptchaWidgetId = grecaptcha.render('addressRecaptcha', {
-                        sitekey: RECAPTCHA_SITE_KEY
-                    });
-                }
-            };
 
             function showError(html) {
                 errorEl.innerHTML = html;
@@ -443,31 +424,11 @@
                 return valid;
             }
 
-            function recaptchaResponse() {
-                if (recaptchaWidgetId === null || !window.grecaptcha) return '';
-                return grecaptcha.getResponse(recaptchaWidgetId);
-            }
-
-            function resetRecaptcha() {
-                // v2 tokens are single-use — a failed POST must mint a new one.
-                if (recaptchaWidgetId !== null && window.grecaptcha) {
-                    grecaptcha.reset(recaptchaWidgetId);
-                }
-            }
-
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
                 clearError();
 
                 if (!validateForm()) return;
-
-                var captchaToken = recaptchaResponse();
-                var captchaBox = document.getElementById('addressRecaptcha');
-                if (!captchaToken) {
-                    captchaBox.style.border = '1px solid #C45C5C';
-                    return;
-                }
-                captchaBox.style.border = 'none';
 
                 var payload = {
                     token: token,
@@ -475,7 +436,6 @@
                     city: form.city.value.trim(),
                     state: form.state.value,
                     zip: form.zip.value.trim(),
-                    recaptchaToken: captchaToken,
                     hp: form.hp.value
                 };
                 if (form.apt.value.trim()) payload.apt = form.apt.value.trim();
@@ -498,18 +458,14 @@
                         var code = body && body.error;
                         if (code === 'not_found') {
                             showState(invalidState);
-                        } else if (code === 'captcha_failed') {
-                            showError('Please complete the verification and try again.');
                         } else if (code === 'validation_failed' || code === 'request_failed') {
                             showError('Please check your entries and try again.');
                         } else {
                             showError('Something went wrong. Please try again in a moment, or email <a href="mailto:team@privetherapeutics.com">team@privetherapeutics.com</a>.');
                         }
-                        resetRecaptcha();
                     });
                 }).catch(function () {
                     showError('We couldn\'t reach the server. Please check your connection and try again, or email <a href="mailto:team@privetherapeutics.com">team@privetherapeutics.com</a>.');
-                    resetRecaptcha();
                 }).finally(function () {
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
